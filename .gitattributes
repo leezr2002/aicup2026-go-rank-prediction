@@ -1,0 +1,17 @@
+# Keep exact bytes: submission CSVs are verified by SHA-256 (the player CSV uses CRLF line endings)
+*.csv -text
+*.npy binary
+*.npz binary
+*.pt binary
+*.parquet binary
+*.zip binary
+*.svg -text
+
+# Source and documentation: LF in the repository and in every checkout
+*.py text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf

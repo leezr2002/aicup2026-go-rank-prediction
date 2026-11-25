@@ -1,0 +1,13 @@
+name: aicup-go-final
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - numpy==2.4.6
+      - scipy==1.17.1
+      - pandas==3.0.5
+      - pyarrow==25.0.1
+      - threadpoolctl==3.6.0
+      - torch==2.14.0

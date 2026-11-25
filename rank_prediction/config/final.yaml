@@ -1,0 +1,37 @@
+{
+  "version": "domain_neighbors_isolated",
+  "ranks": [
+    "D",
+    "C",
+    "B",
+    "A",
+    "1D",
+    "2D",
+    "3D",
+    "4D",
+    "5D",
+    "6D"
+  ],
+  "neighbors": 10,
+  "strength": 1.25,
+  "bins": [
+    5,
+    10,
+    15,
+    20
+  ],
+  "count": [
+    0.9937116805533721,
+    0.9920917358639778,
+    0.9264705882352942,
+    0.6923076923076923
+  ],
+  "epoch": 11,
+  "folds": 4,
+  "sha256": "84861fd940cbde263d669308d9dcb5a11416fe622a0face181f945e9563ca814",
+  "official_inputs": {
+    "rank_prediction_test_private.csv": "d59865e24fe2f5ad742db68108a7f59c2e41138f18c4dc2eea1aa364f3e73c73",
+    "rank_prediction_test_public.csv": "4691803a8306ccd65d93a90bd6d7ba767d57abe96c0660b262f1a2b756b84fef",
+    "sample_submission_rank.csv": "aa5016dbc04d7c64860e1b8727d2c2fa0b19a28a481fd3c674f82ed36f68ed16"
+  }
+}
