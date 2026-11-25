@@ -30,43 +30,25 @@ AI CUP 2026 圍棋競賽的子任務二。
 ## 方法總覽
 
 ```mermaid
-flowchart TB
-  subgraph UP["上游：比賽期間訓練與抽取（本 repo 保存其輸出）"]
-    SGF["官方訓練棋譜<br/>100 萬盤、10 個段位"]
-    HSL["HumanSL 全手數特徵<br/>雙方每一手 × 11 種棋力設定"]
-    KG["KataGo 局面特徵"]
-    FOX["Fox 27 級標籤<br/>預訓練的棋盤模型"]
-    BR["六個分支的段位機率<br/>歷史棋力、對手、棋譜指紋<br/>跨執色、核模型、策略修正"]
-    OOF["22,138 筆折外樣本<br/>依玩家分成 4 折"]
-    SGF --> HSL
-    SGF --> KG
-    SGF --> FOX
-    HSL --> BR
-    KG --> BR
-    FOX --> BR
-    BR --> OOF
+flowchart LR
+  IN["<b>保存的上游輸出</b><br/>六個分支的段位機率<br/>800 題＋22,138 筆折外樣本"]
+  subgraph GRAPH["近鄰圖：Public、Private 各自建立"]
+    direction LR
+    B["初始機率＋<br/>133 維比較特徵"] --> C["兩人棋力差<br/>模型（4 折）"] --> D["10 位鄰居<br/>兩輪訊息傳遞"]
   end
-  subgraph REPO["本 repo 重新計算的部分（CPU）"]
-    ANC["初始機率<br/>對手分支，加上棋譜指紋<br/>相對歷史棋力的修正"]
-    X["每題 133 維比較特徵<br/>六個分支的機率曲線<br/>平均、分散、熵、盤數"]
-    MG["四個兩人棋力差模型<br/>預測 19 種段位差（−9 到 +9）"]
-    G["近鄰圖：Public、Private 各自建立<br/>每題 10 位鄰居"]
-    MP["兩輪訊息傳遞<br/>以強度 1.25 更新初始機率"]
-    MIX["依盤數與跨執色模型融合"]
-    DEC["取期望競賽得分最高的段位"]
-    CSV["submission_rank.csv<br/>800 題"]
-    ANC --> G
-    X --> G
-    X --> MG
-    G --> MP
-    MG --> MP
-    MP --> MIX --> DEC --> CSV
-  end
-  BR --> ANC
-  BR --> X
-  BR -- "跨執色機率" --> MIX
-  OOF -- "訓練" --> MG
+  IN --> B
+  D --> M["依盤數與<br/>跨執色融合"]
+  IN -- "跨執色機率" --> M
+  M --> OUT["submission_rank.csv<br/>期望得分最高的段位"]
+  classDef kept fill:#f1efe8,stroke:#888780,color:#2c2c2a
+  classDef calc fill:#e6f1fb,stroke:#378add,color:#0c447c
+  classDef out fill:#e1f5ee,stroke:#1d9e75,color:#085041
+  class IN kept
+  class B,C,D,M calc
+  class OUT out
 ```
+
+灰色是比賽期間產生、本 repo 保存的上游輸出；藍色是本 repo 重新計算的步驟；綠色是最終提交檔。
 
 1. **上游分支**：
    - 比賽期間用官方棋譜、HumanSL 逐手機率、KataGo 局面特徵與 Fox 預訓練模型，訓練出六個分支，分別估計每題玩家的段位機率。
