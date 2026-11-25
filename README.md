@@ -8,13 +8,6 @@
 
 本 repo 可從保存的上游輸出重新算出比賽提交檔，並與原檔逐位元比對（SHA-256 `84861fd9…ca814`）。只用 CPU，約 10 秒完成。步驟見[重現提交檔](#重現提交檔)。
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/images/score_history_dark.svg">
-  <img alt="棋力預測官方分數演進：11/11 的 0.478 到 11/20 的 0.779，最終 Private 0.769，第 10 名／175 隊" src="docs/images/score_history_light.svg">
-</picture>
-
-灰點是每次上傳的 Public 分數，藍線是當時最佳的 Public，橘點是最終提交的 Private 分數。所有數值列在 [docs/experiments.md](docs/experiments.md)。
-
 ## 目錄
 
 - [任務](#任務)
@@ -196,8 +189,7 @@ python -B acceptance.py --trained
 │   └── official/rank_prediction/ 放官方 CSV（不隨 repo 散布）
 ├── docs/
 │   ├── method.md                 公式、模型架構與超參數
-│   ├── experiments.md            16 次上傳紀錄、有效／無效方法
-│   └── images/                   分數演進圖
+│   └── experiments.md            16 次上傳紀錄、有效／無效方法
 └── rank_prediction/
     ├── README.md                 各階段指令與輸入輸出
     ├── config/final.yaml         圖參數、盤數權重、段位順序、官方輸入雜湊
